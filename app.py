@@ -18,6 +18,8 @@ user_service = UserService(db_path=DB_PATH)
 cart_service = CartService(user_service=user_service)
 order_service = OrderService(user_service=user_service)
 
+def onelint():
+    print(10)
 
 def _get_cart_count_for_current_user() -> int:
     email = session.get("email")
