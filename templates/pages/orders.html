@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Мои заказы</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/header.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/footer.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/flash.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='pages/orders.css') }}" />
+  </head>
+  <body>
+    {% include 'components/header.html' %}
+
+    <main class="orders-page">
+      <section class="page-width orders-hero">
+        <div class="orders-hero__info">
+          <h1>Мои заказы</h1>
+          <p>Здесь вы можете посмотреть статус и детали последних покупок.</p>
+        </div>
+      </section>
+
+      <section class="page-width">
+        {% set scope = 'orders' %}
+        {% include "components/flash.html" %}
+      </section>
+
+      <section class="page-width orders-list">
+        {% if not orders %}
+        <article class="orders-empty">
+          <h2>Заказов пока нет</h2>
+          <p>После оформления в корзине они появятся здесь.</p>
+          <a class="btn btn--primary" href="{{ url_for('catalog') }}">Перейти в каталог</a>
+        </article>
+        {% else %}
+        {% for order in orders %}
+        <article class="order-card">
+          <div class="order-card__header {{ order.header_class }}">
+            <div>
+              <p class="order-card__title">Заказ #{{ order.short_id }}</p>
+              <p class="order-card__meta">{{ order.meta }}</p>
+            </div>
+            <span class="order-badge {{ order.badge_class }}">{{ order.status_label }}</span>
+          </div>
+          <div class="order-card__content">
+            {% for item in order["items"] %}
+            <div class="order-row">
+              <div class="order-row__left">
+                <div class="order-item__image">
+                  <img src="{{ item.image_url }}" alt="{{ item.title }}" loading="lazy" />
+                </div>
+
+                <div class="order-item__info">
+                  <p class="order-item__title">{{ item.title }}</p>
+                  <p class="order-item__author">{{ item.author }} • {{ item.quantity }} шт.</p>
+                </div>
+              </div>
+              <p class="order-row__price">${{ "%.2f"|format(item.line_total) }}</p>
+            </div>
+            {% endfor %}
+            <div class="order-summary-row">
+              <span>Всего</span>
+              <strong>${{ "%.2f"|format(order.total_price) }}</strong>
+            </div>
+            <div class="order-actions{% if not order.can_cancel %} order-actions--single{% endif %}">
+              {% if order.can_cancel %}
+              <form method="post" action="{{ url_for('cancel_order', order_id=order.id) }}">
+                <button class="btn btn--secondary" type="submit">Отменить заказ</button>
+              </form>
+              {% endif %}
+              <form method="post" action="{{ url_for('repeat_order', order_id=order.id) }}">
+                <button class="btn btn--primary" type="submit">Повторить заказ</button>
+              </form>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+        {% endif %}
+      </section>
+    </main>
+
+    {% include 'components/footer.html' %}
+
+  </body>
+</html>

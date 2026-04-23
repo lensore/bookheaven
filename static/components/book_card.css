@@ -1,0 +1,145 @@
+:root {
+  --text-main: #111827;
+  --text-muted: #4b5563;
+  --text-subtle: #9ca3af;
+  --bg-media: #f3f4f6;
+  --blue: #2563eb;
+  --blue-soft: #eff6ff;
+  --danger: #ef4444;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", Tahoma, sans-serif;
+  color: var(--text-main);
+  background: #fafafa;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.book-card {
+  width: min(100%, 240px);
+  cursor: pointer;
+}
+
+.book-card__media {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  background: var(--bg-media);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.book-card__badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--white);
+  background: var(--danger);
+}
+
+.book-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+
+.book-card__cart-form {
+  margin: 0;
+}
+
+.book-card__cart-btn {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--white);
+  color: var(--blue);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 220ms ease, background-color 220ms ease;
+}
+
+.book-card__cart-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.book-card:hover .book-card__image,
+.book-card:focus-within .book-card__image {
+  transform: scale(1.05);
+}
+
+.book-card:hover .book-card__cart-btn,
+.book-card:focus-within .book-card__cart-btn {
+  opacity: 1;
+}
+
+.book-card__cart-btn:hover {
+  background: var(--blue-soft);
+}
+
+.book-card__content {
+  line-height: 1.2;
+}
+
+.book-card__title {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 220ms ease;
+}
+
+.book-card:hover .book-card__title,
+.book-card:focus-within .book-card__title {
+  color: var(--blue);
+}
+
+.book-card__author {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.book-card__price-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.book-card__price {
+  font-size: 18px;
+  color: var(--blue);
+}
+
+.book-card__price-old {
+  font-size: 14px;
+  color: var(--text-subtle);
+  text-decoration: line-through;
+}

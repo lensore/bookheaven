@@ -1,0 +1,54 @@
+/* контейнер — БЕЗ фона/рамки */
+.flash-container {
+    margin: 0 0 24px;
+}
+
+/* одно сообщение */
+.flash-message {
+    padding: 12px 16px;
+    border-radius: 18px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeOut 0.5s ease forwards;
+    animation-delay: 4s;
+
+    overflow: hidden;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+        height: 0;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* типы */
+.flash-info {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+}
+
+.flash-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.flash-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+.flash-warning {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    color: #92400e;
+}

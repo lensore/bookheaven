@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/flash.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='pages/register.css') }}" />
+  </head>
+  <body>
+
+    <main class="register-page">
+      <section class="register-panel page-width">
+        <div class="register-card">
+          <div class="register-card__intro">
+            <div class="register-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-3.33 0-6 1.67-6 4v1h12v-1c0-2.33-2.67-4-6-4Z" fill="currentColor"/></svg>
+            </div>
+            <h1>Создать аккаунт</h1>
+            <p>Зарегистрируйтесь, чтобы получить доступ ко всем функциям BookHaven.</p>
+          </div>
+
+          {% set scope = 'register' %}
+          {% include "components/flash.html" %}
+
+          <form action="" method="post" novalidate class="register-form">
+            {{ form.hidden_tag() }}
+            <p>
+              {{ form.email.label(class="form-label", for="register-email") }}
+              {{ form.email(class="form-input", id="register-email", size=32, placeholder="example@email.com") }}
+              {% for error in form.email.errors %}
+              <span style="color: red;">{{ error }}</span>
+              {% endfor %}
+            </p>
+            <p>
+              {{ form.password.label(class="form-label", for="register-password") }}
+              {{ form.password(class="form-input", id="register-password", size=32, placeholder="Минимум 6 символов") }}
+              {% for error in form.password.errors %}
+              <span style="color: red;">{{ error }}</span>
+              {% endfor %}
+            </p>
+            <p>
+              {{ form.confirm_password.label(class="form-label", for="register-password-confirm") }}
+              {{ form.confirm_password(class="form-input", id="register-password-confirm", size=32, placeholder="Введите пароль ещё раз") }}
+              {% for error in form.confirm_password.errors %}
+              <span style="color: red;">{{ error }}</span>
+              {% endfor %}
+            </p>
+            <p>{{ form.submit(class="btn btn--primary btn--block") }}</p>
+          </form>
+
+          <p class="register-help">
+            Уже есть аккаунт? <a href="{{ url_for('login') }}">Войти</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+  </body>
+</html>

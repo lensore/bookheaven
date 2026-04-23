@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookHaven</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/header.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/footer.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/hero.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/featured_books.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/categories.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='pages/home.css') }}" />
+  </head>
+  <body>
+    {% include 'components/header.html' %}
+
+    <main class="home-page">
+      {% include 'components/hero.html' %}
+      {% include 'components/featured_books.html' %}
+      {% include 'components/categories.html' %}
+    </main>
+
+    {% include 'components/footer.html' %}
+  </body>
+</html>

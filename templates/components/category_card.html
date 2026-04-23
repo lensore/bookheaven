@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Category Card HTML</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/category_card.css') }}" />
+  </head>
+  <body>
+    <main class="page">
+      <a class="category-card" href="/catalog?category=Mystery" aria-label="Open Mystery and Thriller category">
+        <div class="category-card__media">
+          <img
+            class="category-card__image"
+            src="https://images.unsplash.com/photo-1698956483970-a47edef29331?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxteXN0ZXJ5JTIwdGhyaWxsZXIlMjBib29rfGVufDF8fHx8MTc3MTMwOTA3MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            alt="Mystery and Thriller"
+            loading="lazy"
+          />
+
+          <div class="category-card__overlay">
+            <div class="category-card__text">
+              <h3 class="category-card__title">Mystery &amp; Thriller</h3>
+            </div>
+          </div>
+        </div>
+      </a>
+    </main>
+  </body>
+</html>

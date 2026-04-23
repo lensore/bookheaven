@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/header.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/footer.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='pages/cart.css') }}" />
+  </head>
+  <body>
+    {% include 'components/header.html' %}
+
+    <main class="page-cart">
+      {% if cart_items %}
+      <section class="cart-hero">
+        <div class="page-width">
+          <h1>Корзина</h1>
+          <p>Проверьте содержимое заказа и оформите покупку в несколько шагов.</p>
+        </div>
+      </section>
+      {% endif %}
+
+      <section class="cart-content page-width">
+        {% if not cart_items %}
+        <section class="cart-empty">
+          <div class="cart-empty__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M3 4h2l2.2 10.3a2 2 0 0 0 2 1.6h7.5a2 2 0 0 0 2-1.6L21 7H7"/><path d="M14 10h6"/></svg>
+          </div>
+          <h2>Корзина пуста</h2>
+          <p>Добавьте книги из каталога, чтобы начать покупки.</p>
+        </section>
+        {% else %}
+        <div class="cart-grid">
+          <div class="cart-items">
+            {% for item in cart_items %}
+            <article class="cart-item">
+              <div class="cart-item__image" aria-hidden="true">
+                <img src="{{ item.image_url }}" alt="{{ item.title }} cover" loading="lazy" />
+              </div>
+              <div class="cart-item__body">
+                <div class="cart-item__header">
+                  <div>
+                    <h2>{{ item.title }}</h2>
+                    <p class="cart-item__author">{{ item.author }}</p>
+                  </div>
+                  <form class="cart-item__remove-form" method="post" action="{{ url_for('remove_cart_item') }}">
+                    <input type="hidden" name="book_id" value="{{ item.book_id }}" />
+                    <button type="submit" class="cart-item__remove" aria-label="Удалить {{ item.title }} из корзины">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+                    </button>
+                  </form>
+                </div>
+                <p class="cart-item__price">${{ "%.2f"|format(item.line_total) }} <span>${{ "%.2f"|format(item.price) }} за шт. × {{ item.quantity }}</span></p>
+                <div class="cart-item__controls">
+                  <form class="qty-form" method="post" action="{{ url_for('decrease_cart_item') }}">
+                    <input type="hidden" name="book_id" value="{{ item.book_id }}" />
+                    <button type="submit" class="qty-btn" aria-label="Уменьшить количество {{ item.title }}">−</button>
+                  </form>
+                  <span class="qty-value">{{ item.quantity }}</span>
+                  <form class="qty-form" method="post" action="{{ url_for('increase_cart_item') }}">
+                    <input type="hidden" name="book_id" value="{{ item.book_id }}" />
+                    <button type="submit" class="qty-btn" aria-label="Увеличить количество {{ item.title }}">+</button>
+                  </form>
+                </div>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+
+          <aside class="order-summary">
+            <div class="summary-card">
+              <h2>Итого</h2>
+              <div class="summary-row">
+                <span>Товары ({{ total_qty }})</span>
+                <span>${{ "%.2f"|format(total_price) }}</span>
+              </div>
+              <div class="summary-row">
+                <span>Доставка</span>
+                <span class="summary-note">Бесплатно</span>
+              </div>
+              <div class="summary-total">
+                <span>Всего</span>
+                <strong>${{ "%.2f"|format(total_price) }}</strong>
+              </div>
+              <form method="post" action="{{ url_for('create_order') }}">
+                <button class="btn btn--primary btn--block" type="submit">Оформить заказ</button>
+              </form>
+            </div>
+          </aside>
+        </div>
+        {% endif %}
+      </section>
+    </main>
+
+    {% include 'components/footer.html' %}
+  </body>
+</html>

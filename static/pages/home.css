@@ -1,0 +1,40 @@
+:root {
+  --bg: #f9fafb;
+  --text: #111827;
+  --muted: #6b7280;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", Tahoma, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.home-page {
+  display: grid;
+  gap: 0;
+}
+
+.hero {
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .hero__container,
+  .featured-books__container,
+  .categories__container,
+  .newsletter__container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

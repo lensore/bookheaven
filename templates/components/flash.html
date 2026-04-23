@@ -1,0 +1,31 @@
+{% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, msg in messages %}
+        {% if msg is mapping %}
+          {% set flash_scope = msg.scope %}
+          {% set flash_text = msg.text %}
+          {% set flash_type = msg.type or 'info' %}
+        {% else %}
+          {% set flash_scope = category %}
+          {% set flash_text = msg %}
+          {% if category in ['error', 'danger'] %}
+            {% set flash_type = 'error' %}
+          {% elif category == 'success' %}
+            {% set flash_type = 'success' %}
+          {% elif category == 'warning' %}
+            {% set flash_type = 'warning' %}
+          {% else %}
+            {% set flash_type = 'info' %}
+          {% endif %}
+        {% endif %}
+
+        {% if flash_scope == scope and flash_text %}
+          <div class="flash-message flash-{{ flash_type }}">
+            {{ flash_text }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}

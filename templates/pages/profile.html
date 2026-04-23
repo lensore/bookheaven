@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Профиль</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/header.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/footer.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/flash.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='pages/profile.css') }}" />
+  </head>
+  <body>
+    {% include 'components/header.html' %}
+
+    <main class="profile-page">
+      <section class="page-width profile-header">
+        <div class="profile-card profile-card--top">
+          <div class="profile-summary">
+
+            <div class="profile-avatar">
+              {% if form.name.data %}
+                {{ form.name.data[:2].upper() }}
+              {% else %}
+                {{ email[:2].upper() }}
+              {% endif %}
+            </div>
+            <div>
+              <h1>
+                {% if form.name.data %}
+                  {{ form.name.data }}
+                {% else %}
+                  {{ email }}
+                {% endif %}
+              </h1>
+              {% if form.name.data %}
+                <p class="profile-email">{{ email }}</p>
+              {% endif %}
+            </div>
+
+          </div>
+
+          <a href="{{ url_for('logout') }}" class="btn btn--secondary">Выйти</a>
+        </div>
+      </section>
+
+      <section class="page-width profile-actions">
+        <div class="profile-card profile-card--link">
+          <div>
+            <h2>Мои заказы</h2>
+            <p>Просмотр истории покупок и статуса доставки</p>
+          </div>
+          <a href="/orders" class="profile-link">Перейти</a>
+        </div>
+      </section>
+
+      <section class="page-width profile-form-section">
+        <div class="profile-card">
+          <h2>Данные аккаунта</h2>
+
+          {% set scope = 'profile' %}
+          {% include "components/flash.html" %}
+
+          <form method="post" class="profile-form">
+            {{ form.hidden_tag() }}
+
+            <p>
+              {{ form.name.label(class="form-label", for="profile-name") }}
+              {{ form.name(class="form-input", id="profile-name", size=32, placeholder="Введите ваше имя") }}
+              {% for error in form.name.errors %}
+              <span style="color: red;">{{ error }}</span>
+              {% endfor %}
+            </p>
+
+            <p>
+              {{ form.email.label(class="form-label", for="profile-email") }}
+              {{ form.email(class="form-input", id="profile-email", size=32) }}
+              {% for error in form.email.errors %}
+              <span style="color: red;">{{ error }}</span>
+              {% endfor %}
+            </p>
+
+            <p>
+              {{ form.address.label(class="form-label", for="profile-address") }}
+              {{ form.address(class="form-input", id="profile-address", size=32, placeholder="Адрес доставки") }}
+              {% for error in form.address.errors %}
+              <span style="color: red;">{{ error }}</span>
+              {% endfor %}
+            </p>
+
+            <p>
+              {{ form.payment_method.label(class="form-label", for="profile-payment") }}
+              {{ form.payment_method(class="form-input", id="profile-payment", size=32, placeholder="Способ оплаты") }}
+              {% for error in form.payment_method.errors %}
+              <span style="color: red;">{{ error }}</span>
+              {% endfor %}
+            </p>
+
+            <p>{{ form.submit(class="btn btn--primary btn--block") }}</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="page-width profile-actions">
+        <div class="profile-card profile-card--link">
+          <div>
+            <h2>Безопасность аккаунта</h2>
+            <p>Обновите пароль, чтобы защитить ваш профиль</p>
+          </div>
+          <a href="{{ url_for('change_password') }}" class="profile-link">Сменить пароль</a>
+        </div>
+      </section>
+    </main>
+
+    {% include 'components/footer.html' %}
+  </body>
+</html>

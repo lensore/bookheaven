@@ -1,0 +1,124 @@
+:root {
+  --bg-section: #f9fafb;
+  --bg-card: #f3f4f6;
+  --text-main: #111827;
+  --text-subtle: #4b5563;
+  --text-white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", Tahoma, sans-serif;
+  color: var(--text-main);
+  background: #ffffff;
+}
+
+.categories {
+  padding: 48px 0;
+  background: var(--bg-section);
+}
+
+.categories__container {
+  width: min(100%, 1280px);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.categories__header {
+  margin-bottom: 32px;
+}
+
+.categories__title {
+  margin: 0 0 8px;
+  font-size: clamp(28px, 3vw, 34px);
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.categories__subtitle {
+  margin: 0;
+  color: var(--text-subtle);
+  font-size: 16px;
+}
+
+.categories__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.category-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.category-card__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.category-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+
+.category-card__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+}
+
+.category-card__text {
+  color: var(--text-white);
+}
+
+.category-card__title {
+  margin: 0 0 4px;
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.category-card__count {
+  margin: 0;
+  font-size: 14px;
+  color: #e5e7eb;
+}
+
+.category-card:hover .category-card__image,
+.category-card:focus-visible .category-card__image {
+  transform: scale(1.05);
+}
+
+@media (min-width: 768px) {
+  .categories__container {
+    padding: 0 24px;
+  }
+
+  .categories__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .categories__container {
+    padding: 0 32px;
+  }
+}

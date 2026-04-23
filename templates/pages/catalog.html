@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Каталог книг</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/header.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/book_card.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/footer.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='pages/catalog.css') }}" />
+  </head>
+  <body>
+    {% from 'components/book_card.html' import render_book_card %}
+    {% include 'components/header.html' %}
+
+    <main class="catalog-page">
+      <form id="catalog-filters-form" class="catalog-filters-form" method="get" action="{{ url_for('catalog') }}">
+        <button type="submit" class="catalog-filters-form__submit-fallback" aria-hidden="true" tabindex="-1">Apply filters</button>
+        <section class="catalog-hero">
+          <div class="page-width">
+            <div class="catalog-hero__top">
+              <div class="catalog-hero__intro">
+                <h1>Каталог книг</h1>
+                <div class="search catalog-search">
+                  <svg class="search__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                  {{ catalog_form.query(id='catalog-search', type='search', autocomplete='off', value=request.args.get('query', '')) }}
+                </div>
+              </div>
+              <div class="catalog-stats">Найдено: {{ books|length }} книг</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="catalog-content page-width">
+          <aside class="catalog-filters">
+            <div class="filters-card">
+              <h2>Фильтры</h2>
+              <div class="filter-group">
+                <label class="filter-group__title" for="catalog-category-select">Категория</label>
+                {{ catalog_form.category(id='catalog-category-select', class_='catalog-category-select', onchange='this.form.submit()') }}
+              </div>
+              <div class="catalog-sort">
+                <label for="catalog-sort-select">Сортировка</label>
+                {{ catalog_form.sort(id='catalog-sort-select', onchange='this.form.submit()') }}
+              </div>
+            </div>
+          </aside>
+
+          <section class="catalog-grid">
+            {% if not books %}
+            <p class="catalog-empty">По вашему запросу книги не найдены.</p>
+            {% endif %}
+            {% for book in books %}
+            {{ render_book_card(book, add_to_cart_form_id='catalog-filters-form') }}
+            {% endfor %}
+          </section>
+        </section>
+      </form>
+    </main>
+
+    {% include 'components/footer.html' %}
+  </body>
+</html>

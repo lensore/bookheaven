@@ -1,0 +1,54 @@
+{% macro render_book_card(book, add_to_cart_form_id='', next_url='') -%}
+<article class="book-card" role="button" tabindex="0" aria-label="View {{ book.title }}">
+  <div class="book-card__media">
+    {% if book.badge %}
+    <span class="book-card__badge">{{ book.badge }}</span>
+    {% endif %}
+    <img class="book-card__image" src="{{ book.imageUrl }}" alt="{{ book.title }}" loading="lazy" />
+    {% if add_to_cart_form_id %}
+    <button
+      class="book-card__cart-btn"
+      type="submit"
+      form="{{ add_to_cart_form_id }}"
+      formmethod="post"
+      formaction="{{ url_for('add_to_cart') }}"
+      name="book_id"
+      value="{{ book.id }}"
+      aria-label="Add {{ book.title }} to cart"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="8" cy="21" r="1"></circle>
+        <circle cx="19" cy="21" r="1"></circle>
+        <path d="M2.05 2h2l2.66 12.42a2 2 0 0 0 2 1.58h9.72a2 2 0 0 0 2-1.58L22 6H6"></path>
+      </svg>
+    </button>
+    {% else %}
+    <form class="book-card__cart-form" method="post" action="{{ url_for('add_to_cart') }}">
+      <input type="hidden" name="book_id" value="{{ book.id }}" />
+      {% if next_url %}
+      <input type="hidden" name="next" value="{{ next_url }}" />
+      {% endif %}
+      <button class="book-card__cart-btn" type="submit" aria-label="Add {{ book.title }} to cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="8" cy="21" r="1"></circle>
+          <circle cx="19" cy="21" r="1"></circle>
+          <path d="M2.05 2h2l2.66 12.42a2 2 0 0 0 2 1.58h9.72a2 2 0 0 0 2-1.58L22 6H6"></path>
+        </svg>
+      </button>
+    </form>
+    {% endif %}
+  </div>
+
+  <div class="book-card__content">
+    <h3 class="book-card__title">{{ book.title }}</h3>
+    <p class="book-card__author">{{ book.author }}</p>
+
+    <div class="book-card__price-row">
+      <span class="book-card__price">${{ "%.2f"|format(book.price) }}</span>
+      {% if book.originalPrice %}
+      <span class="book-card__price-old">${{ "%.2f"|format(book.originalPrice) }}</span>
+      {% endif %}
+    </div>
+  </div>
+</article>
+{%- endmacro %}

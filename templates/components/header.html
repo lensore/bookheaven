@@ -1,0 +1,65 @@
+<header class="site-header">
+  <div class="site-header__container">
+    <div class="top-row">
+      <div class="brand-block">
+        <button class="icon-btn mobile-only" type="button" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <a class="brand-link" href="/">
+          <h1 class="brand-title">BookHaven</h1>
+        </a>
+      </div>
+
+      <form class="search desktop-search" method="get" action="{{ url_for('catalog') }}">
+        {% if request.args.get('category') %}
+        <input type="hidden" name="category" value="{{ request.args.get('category') }}" />
+        {% endif %}
+        {% if request.args.get('sort') %}
+        <input type="hidden" name="sort" value="{{ request.args.get('sort') }}" />
+        {% endif %}
+        <svg class="search__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" name="query" value="{{ request.args.get('query', '') }}" placeholder="Search for books, authors, ISBN..." />
+      </form>
+
+      <div class="actions">
+        <button class="icon-btn mobile-only" type="button" aria-label="Search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+
+        <a class="icon-link" href="/login" aria-label="Profile">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+
+        <a class="icon-link cart-link" href="/cart" aria-label="Cart">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2h2l2.66 12.42a2 2 0 0 0 2 1.58h9.72a2 2 0 0 0 2-1.58L22 6H6"/></svg>
+          {% if cart_count > 0 %}
+          <span class="cart-badge" aria-label="{{ cart_count }} items in cart">{{ cart_count }}</span>
+          {% endif %}
+        </a>
+      </div>
+    </div>
+
+    <form class="search mobile-search" method="get" action="{{ url_for('catalog') }}">
+      {% if request.args.get('category') %}
+      <input type="hidden" name="category" value="{{ request.args.get('category') }}" />
+      {% endif %}
+      {% if request.args.get('sort') %}
+      <input type="hidden" name="sort" value="{{ request.args.get('sort') }}" />
+      {% endif %}
+      <svg class="search__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="search" name="query" value="{{ request.args.get('query', '') }}" placeholder="Search for books..." />
+    </form>
+  </div>
+
+  <nav class="main-nav">
+    <div class="site-header__container nav-row">
+      <a href="/catalog">Каталог</a>
+      <a href="/catalog?category=Fiction">Fiction</a>
+      <a href="/catalog?category=Sci-Fi">Sci-Fi</a>
+      <a href="/catalog?category=Mystery">Mystery</a>
+      <a href="/catalog?category=Romance">Romance</a>
+      <a href="/catalog?category=Fantasy">Fantasy</a>
+      <a href="/catalog?category=Biography">Biography</a>
+    </div>
+  </nav>
+</header>

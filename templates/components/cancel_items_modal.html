@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CancelItemsModal HTML</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/cancel_items_modal.css') }}" />
+  </head>
+  <body>
+    <div class="overlay">
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <header class="modal__header">
+          <h2 id="modal-title" class="modal__title">Отмена товаров</h2>
+          <button class="icon-btn" type="button" aria-label="Закрыть">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </header>
+
+        <div class="modal__body">
+          <p class="modal__description">
+            Выберите товары и укажите количество для отмены. Средства будут возвращены на вашу карту в течение 5-7 рабочих дней.
+          </p>
+
+          <div class="items-list">
+            <article class="item-card item-card--selected">
+              <div class="item-card__media">
+                <img
+                  src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=80"
+                  alt="1984"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="item-card__content">
+                <h3 class="item-card__title">1984</h3>
+                <p class="item-card__author">George Orwell</p>
+
+                <div class="item-card__meta-row">
+                  <div class="item-card__meta">
+                    <span>Заказано: 3</span>
+                    <span class="item-card__cancelled">(отменено: 1)</span>
+                    <span>Доступно: 2</span>
+                  </div>
+                  <p class="item-card__price">$14.99</p>
+                </div>
+
+                <div class="qty-row">
+                  <span class="qty-row__label">Отменить:</span>
+
+                  <div class="qty-control" aria-label="Выбор количества">
+                    <button class="qty-btn" type="button" aria-label="Уменьшить">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14" /></svg>
+                    </button>
+                    <span class="qty-value">1</span>
+                    <button class="qty-btn" type="button" aria-label="Увеличить">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                    </button>
+                  </div>
+
+                  <button class="link-btn" type="button">Все</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="item-card">
+              <div class="item-card__media">
+                <img
+                  src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80"
+                  alt="The Great Gatsby"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="item-card__content">
+                <h3 class="item-card__title">The Great Gatsby</h3>
+                <p class="item-card__author">F. Scott Fitzgerald</p>
+
+                <div class="item-card__meta-row">
+                  <div class="item-card__meta">
+                    <span>Заказано: 1</span>
+                    <span>Доступно: 1</span>
+                  </div>
+                  <p class="item-card__price">$12.99</p>
+                </div>
+
+                <div class="qty-row">
+                  <span class="qty-row__label">Отменить:</span>
+
+                  <div class="qty-control" aria-label="Выбор количества">
+                    <button class="qty-btn" type="button" aria-label="Уменьшить" disabled>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14" /></svg>
+                    </button>
+                    <span class="qty-value">0</span>
+                    <button class="qty-btn" type="button" aria-label="Увеличить">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                    </button>
+                  </div>
+
+                  <button class="link-btn" type="button">Все</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <section class="refund-box" aria-label="Информация о возврате">
+            <svg class="refund-box__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 8v5M12 16h.01"></path>
+            </svg>
+            <div>
+              <p class="refund-box__text">Будет отменено товаров: 1</p>
+              <p class="refund-box__text">
+                Сумма возврата: <strong>$14.99</strong>
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <footer class="modal__footer">
+          <button class="btn btn--ghost" type="button">Отмена</button>
+          <button class="btn btn--danger" type="button">Отменить выбранные товары</button>
+        </footer>
+      </section>
+    </div>
+  </body>
+</html>

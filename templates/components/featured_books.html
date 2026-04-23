@@ -1,0 +1,18 @@
+{% from 'components/book_card.html' import render_book_card %}
+<section class="featured-books" aria-labelledby="featured-books-title">
+      <div class="featured-books__container">
+        <header class="featured-books__header">
+          <div>
+            <h2 id="featured-books-title" class="featured-books__title">Featured Books</h2>
+            <p class="featured-books__subtitle">Hand-picked selections just for you</p>
+          </div>
+          <a class="featured-books__link" href="/catalog">View All &rarr;</a>
+        </header>
+        
+        <div class="featured-books__grid">
+      {% for book in featured_books %}
+      {{ render_book_card(book, next_url=request.path) }}
+      {% endfor %}
+    </div>
+      </div>
+</section>
